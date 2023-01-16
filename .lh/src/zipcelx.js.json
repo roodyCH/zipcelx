@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/zipcelx.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1673872010725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1673872031669,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n \t\t})\n \t\t.then((blob) => {\n \t\t\tif (window.flutter_inappwebview) {\n \t\t\t\tvar reader = new FileReader()\n-\t\t\t\treader.readAsDataURL(response.data)\n+\t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n \t\t\t\t\tconsole.log(base64)\n"
+                },
+                {
+                    "date": 1673872067368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n \t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n-\t\t\t\t\tconsole.log(base64)\n+\n \t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'png', 'qrCode')\n \t\t\t\t}\n \t\t\t} else {\n \t\t\t\tFileSaver.saveAs(blob, `${config.filename}.xlsx`)\n"
+                }
+            ],
+            "date": 1673872010725,
+            "name": "Commit-0",
+            "content": "import JSZip from 'jszip'\nimport FileSaver from 'file-saver'\n\nimport validator from './validator'\nimport generatorRows from './formatters/rows/generatorRows'\n\nimport workbookXML from './statics/workbook.xml'\nimport workbookXMLRels from './statics/workbook.xml.rels'\nimport rels from './statics/rels'\nimport contentTypes from './statics/[Content_Types].xml'\nimport templateSheet from './templates/worksheet.xml'\n\nexport const generateXMLWorksheet = (rows) => {\n\tconst XMLRows = generatorRows(rows)\n\treturn templateSheet.replace('{placeholder}', XMLRows)\n}\n\nexport default (config) => {\n\tif (!validator(config)) {\n\t\tthrow new Error('Validation failed.')\n\t}\n\n\tconst zip = new JSZip()\n\tconst xl = zip.folder('xl')\n\txl.file('workbook.xml', workbookXML)\n\txl.file('_rels/workbook.xml.rels', workbookXMLRels)\n\tzip.file('_rels/.rels', rels)\n\tzip.file('[Content_Types].xml', contentTypes)\n\n\tconst worksheet = generateXMLWorksheet(config.sheet.data)\n\txl.file('worksheets/sheet1.xml', worksheet)\n\n\treturn zip\n\t\t.generateAsync({\n\t\t\ttype: 'blob',\n\t\t\tmimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',\n\t\t})\n\t\t.then((blob) => {\n\t\t\tif (window.flutter_inappwebview) {\n\t\t\t\tvar reader = new FileReader()\n\t\t\t\treader.readAsDataURL(response.data)\n\t\t\t\treader.onloadend = function () {\n\t\t\t\t\tvar dataUrl = reader.result\n\t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n\t\t\t\t\tconsole.log(base64)\n\t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'png', 'qrCode')\n\t\t\t\t}\n\t\t\t} else {\n\t\t\t\tFileSaver.saveAs(blob, `${config.filename}.xlsx`)\n\t\t\t}\n\t\t})\n}\n"
+        }
+    ]
+}
