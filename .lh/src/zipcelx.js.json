@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1673872010725,
@@ -16,6 +16,14 @@
                 {
                     "date": 1673872067368,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n \t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n-\t\t\t\t\tconsole.log(base64)\n+\n \t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'png', 'qrCode')\n \t\t\t\t}\n \t\t\t} else {\n \t\t\t\tFileSaver.saveAs(blob, `${config.filename}.xlsx`)\n"
+                },
+                {
+                    "date": 1673873434933,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n \n-\t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'png', 'qrCode')\n+\t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'xlsx', config.filename)\n \t\t\t\t}\n \t\t\t} else {\n \t\t\t\tFileSaver.saveAs(blob, `${config.filename}.xlsx`)\n \t\t\t}\n"
+                },
+                {
+                    "date": 1673873446535,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,8 +41,9 @@\n \t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n+\t\t\t\t\tconsole.log(base64)\n \n \t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'xlsx', config.filename)\n \t\t\t\t}\n \t\t\t} else {\n"
                 }
             ],
             "date": 1673872010725,

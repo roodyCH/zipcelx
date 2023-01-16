@@ -42,8 +42,9 @@ export default (config) => {
 				reader.onloadend = function () {
 					var dataUrl = reader.result
 					var base64 = dataUrl.split(',')[1]
+					console.log(base64)
 
-					window.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'png', 'qrCode')
+					window.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'xlsx', config.filename)
 				}
 			} else {
 				FileSaver.saveAs(blob, `${config.filename}.xlsx`)
