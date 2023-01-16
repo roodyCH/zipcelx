@@ -38,6 +38,8 @@ export default (config) => {
 		.then((blob) => {
 			if (window.flutter_inappwebview) {
 				var reader = new FileReader()
+				console.log('webview detected')
+				console.log('blob', blob)
 				reader.readAsDataURL(blob)
 				reader.onloadend = function () {
 					var dataUrl = reader.result
@@ -47,6 +49,7 @@ export default (config) => {
 					window.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'xlsx', config.filename)
 				}
 			} else {
+				console.log('saving with filesaver')
 				FileSaver.saveAs(blob, `${config.filename}.xlsx`)
 			}
 		})

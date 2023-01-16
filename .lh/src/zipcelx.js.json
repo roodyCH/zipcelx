@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1673872010725,
@@ -24,6 +24,18 @@
                 {
                     "date": 1673873446535,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,8 +41,9 @@\n \t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n+\t\t\t\t\tconsole.log(base64)\n \n \t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'xlsx', config.filename)\n \t\t\t\t}\n \t\t\t} else {\n"
+                },
+                {
+                    "date": 1673875464894,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,8 +37,9 @@\n \t\t})\n \t\t.then((blob) => {\n \t\t\tif (window.flutter_inappwebview) {\n \t\t\t\tvar reader = new FileReader()\n+\t\t\t\tprint('blob', blob)\n \t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n"
+                },
+                {
+                    "date": 1673875473586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n \t\t})\n \t\t.then((blob) => {\n \t\t\tif (window.flutter_inappwebview) {\n \t\t\t\tvar reader = new FileReader()\n-\t\t\t\tprint('blob', blob)\n+\n \t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n"
+                },
+                {
+                    "date": 1673875605169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,10 @@\n \t\t})\n \t\t.then((blob) => {\n \t\t\tif (window.flutter_inappwebview) {\n \t\t\t\tvar reader = new FileReader()\n-\n+\t\t\t\tconsole.log('webview detected')\n+\t\t\t\tconsole.log('blob', blob)\n \t\t\t\treader.readAsDataURL(blob)\n \t\t\t\treader.onloadend = function () {\n \t\t\t\t\tvar dataUrl = reader.result\n \t\t\t\t\tvar base64 = dataUrl.split(',')[1]\n@@ -47,8 +48,9 @@\n \n \t\t\t\t\twindow.flutter_inappwebview.callHandler('blobToBase64Handler', base64.toString(), 'xlsx', config.filename)\n \t\t\t\t}\n \t\t\t} else {\n+\t\t\t\tconsole.log('saving with filesaver')\n \t\t\t\tFileSaver.saveAs(blob, `${config.filename}.xlsx`)\n \t\t\t}\n \t\t})\n }\n"
                 }
             ],
             "date": 1673872010725,
